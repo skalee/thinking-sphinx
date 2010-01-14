@@ -5,12 +5,12 @@ desc 'Generate documentation'
 YARD::Rake::YardocTask.new
 
 Jeweler::Tasks.new do |gem|
-  gem.name        = "thinking-sphinx"
+  gem.name        = "hawkerb-thinking-sphinx"
   gem.summary     = "ActiveRecord/Rails Sphinx library"
   gem.description = "A concise and easy-to-use Ruby library that connects ActiveRecord to the Sphinx search daemon, managing configuration, indexing and searching."
-  gem.author      = "Pat Allan"
-  gem.email       = "pat@freelancing-gods.com"
-  gem.homepage    = "http://ts.freelancing-gods.com"
+  gem.authors      = ["Pat Allan", "Jaroslaw Skrzypek"]
+  gem.email       = "hawk@zenbe.com"
+  gem.homepage    = "http://github.com/hawkerb/thinking-sphinx"
     
   # s.rubyforge_project = "thinking-sphinx"
   gem.files     = FileList[
@@ -37,3 +37,5 @@ http://freelancing-god.github.com/ts/en/upgrading.html
 
 MESSAGE
 end
+Jeweler::GemcutterTasks.new
+

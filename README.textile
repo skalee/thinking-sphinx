@@ -1,3 +1,25 @@
+h1. Slightly modified version of Thinking Sphinx
+
+h2. Removed automated includes
+
+I this version, all of your models which use TS must manually include ThinkingSphinx modules. Example:
+
+class Person
+
+  # Sphinx
+  include ThinkingSphinx::ActiveRecord::Scopes
+  include ThinkingSphinx::SearchMethods
+  include ThinkingSphinx::ActiveRecord::AttributeUpdates
+  include ThinkingSphinx::ActiveRecord::Delta
+  define_index do
+    ...
+  end
+
+  ...
+end
+
+Because of that, it is a lot easier to override default sphinx methods.
+
 h1. Thinking Sphinx
 
 h2. Usage
