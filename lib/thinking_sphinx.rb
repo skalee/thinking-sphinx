@@ -102,11 +102,8 @@ module ThinkingSphinx
   #
   def self.deltas_enabled?
     if Thread.current[:thinking_sphinx_deltas_enabled].nil?
-      Thread.current[:thinking_sphinx_deltas_enabled] = (
-        ThinkingSphinx::Configuration.environment != "test"
-      )
+      return true
     end
-    
     Thread.current[:thinking_sphinx_deltas_enabled]
   end
 
@@ -123,11 +120,8 @@ module ThinkingSphinx
   #
   def self.updates_enabled?
     if Thread.current[:thinking_sphinx_updates_enabled].nil?
-      Thread.current[:thinking_sphinx_updates_enabled] = (
-        return true
-      )
+      return true
     end
-    
     Thread.current[:thinking_sphinx_updates_enabled]
   end
 
