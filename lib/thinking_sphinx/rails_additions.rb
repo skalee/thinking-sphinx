@@ -137,7 +137,7 @@ Class.extend(
 
 module ThinkingSphinx
   module MetaClass
-    def metaclass
+    def singleton_class
       class << self
         self
       end
@@ -145,6 +145,6 @@ module ThinkingSphinx
   end
 end
 
-unless Object.new.respond_to?(:metaclass)
+unless Object.new.respond_to?(:singleton_class)
   Object.send(:include, ThinkingSphinx::MetaClass)
 end
