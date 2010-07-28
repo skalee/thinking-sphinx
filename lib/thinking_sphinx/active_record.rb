@@ -279,7 +279,6 @@ module ThinkingSphinx
           yield
         ensure
           ThinkingSphinx.deltas_enabled = original_setting
-          self.index_delta if reindex_after
         end
       end
       
@@ -292,13 +291,9 @@ module ThinkingSphinx
       end
       
       def add_sphinx_callbacks_and_extend(delta = false)
-        unless indexed_by_sphinx?
-          after_destroy :toggle_deleted
-        end
         
         if delta && !delta_indexed_by_sphinx?
           before_save   :toggle_delta
-          after_commit  :index_delta
         end
       end
       
@@ -323,20 +318,6 @@ module ThinkingSphinx
     
     def in_both_indexes?
       in_core_index? && in_delta_index?
-    end
-    
-    def toggle_deleted
-      return unless ThinkingSphinx.updates_enabled?
-      
-      self.class.core_index_names.each do |index_name|
-        self.class.delete_in_index index_name, self.sphinx_document_id
-      end
-      self.class.delta_index_names.each do |index_name|
-        self.class.delete_in_index index_name, self.sphinx_document_id
-      end if self.class.delta_indexed_by_sphinx? && toggled_delta?
-      
-    rescue ::ThinkingSphinx::ConnectionError
-      # nothing
     end
     
     # Returns the unique integer id for the object. This method uses the
