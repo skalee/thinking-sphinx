@@ -243,12 +243,7 @@ module ThinkingSphinx
       end
       
       def delete_in_index(index, document_id)
-        return unless ThinkingSphinx.sphinx_running? &&
-          search_for_id(document_id, index)
-        
-        ThinkingSphinx::Configuration.instance.client.update(
-          index, ['sphinx_deleted'], {document_id => [1]}
-        )
+	return #sphinx_delted has been removed - use kill list instead!
       end
       
       def sphinx_offset

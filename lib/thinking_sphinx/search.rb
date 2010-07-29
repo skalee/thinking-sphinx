@@ -529,7 +529,7 @@ module ThinkingSphinx
     end
     
     def internal_filters
-      filters = [Riddle::Client::Filter.new('sphinx_deleted', [0])]
+      filters = [] #sphinx_deleted removed - use kill list instead!
       
       class_crcs = classes.collect { |klass|
         klass.to_crc32s
