@@ -96,6 +96,19 @@ namespace :thinking_sphinx do
     Rake::Task["thinking_sphinx:index"].invoke
     Rake::Task["thinking_sphinx:start"].invoke
   end
+
+  desc "Reindex delta indexes (all the indexes with name ending with _delta)"
+  task :reindex_delta => :app_env do
+    config = ThinkingSphinx::Configuration.instance
+    FileUtils.mkdir_p config.searchd_file_path
+
+    index_names = ThinkingSphinx.context.indexed_models.map do |model|
+      model.constantize.to_riddle.select{ |index| /_delta\Z/ =~ index.name }.map(&:name)
+    end.flatten.join(' ')
+
+    puts config.controller.index index_names
+  end
+
 end
 
 namespace :ts do
@@ -120,6 +133,8 @@ namespace :ts do
   task :config  => "thinking_sphinx:configure"
   desc "Stop Sphinx (if it's running), rebuild the indexes, and start Sphinx"
   task :rebuild => "thinking_sphinx:rebuild"
+  desc "Reindex delta indexes (all the indexes with name ending with _delta)"
+  task :din => "thinking_sphinx:reindex_delta"
 end
 
 def sphinx_pid
